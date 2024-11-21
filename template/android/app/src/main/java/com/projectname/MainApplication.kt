@@ -1,4 +1,4 @@
-package com.rn_template
+package com.projectname
 
 import android.app.Application
 import com.facebook.react.PackageList
