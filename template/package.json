@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.0.5",
+    "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-masked-view/masked-view": "^0.3.2",
     "@react-navigation/bottom-tabs": "^7.0.6",
@@ -28,7 +29,7 @@
     "@tanstack/react-query": "^5.59.19",
     "axios": "^1.7.7",
     "react": "18.3.1",
-    "react-native": "0.76.3",
+    "react-native": "0.76.5",
     "react-native-animatable": "^1.4.0",
     "react-native-date-picker": "^5.0.7",
     "react-native-gesture-handler": "^2.20.2",
@@ -42,6 +43,8 @@
     "react-native-safe-area-context": "^4.14.0",
     "react-native-screens": "^4.2.0",
     "react-native-size-matters": "^0.4.2",
+    "react-native-svg": "^15.10.1",
+    "react-native-svg-transformer": "^1.5.0",
     "react-native-vector-icons": "^10.2.0",
     "react-redux": "^9.1.2"
   },
