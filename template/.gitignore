@@ -4,7 +4,8 @@
 
 # Xcode
 #
-build/
+ios/Pods
+ios/build
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -72,3 +73,4 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+yarn.lock
