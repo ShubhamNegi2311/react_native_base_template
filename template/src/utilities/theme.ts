@@ -1,4 +1,4 @@
-// theme.ts
+// theme.ts -> Contains theme config for React native paper.
 import {
   MD3CustomTheme,
   MD3DarkTheme,
@@ -33,9 +33,9 @@ const customFonts: MD3ThemeFonts = {
   headlineLarge: {
     fontFamily: 'Roboto-Bold',
     fontWeight: '700',
-    fontSize: ms(20),
+    fontSize: ms(30),
     letterSpacing: 0,
-    lineHeight: ms(24),
+    lineHeight: ms(36),
   },
   headlineMedium: {
     fontFamily: 'Roboto-Medium',
@@ -170,20 +170,40 @@ export const lightTheme: MD3CustomTheme = {
       alert: '#550000',
       error: '#AA2222',
       success: '#44EE00',
+      placeholder: '#A5A5A5',
+      white: '#FFFFFF',
+      black: '#000000',
+      primary: '#6200ee',
     },
     iconColor: {
       regular: '#FFFFFF',
       alert: '#550000',
       error: '#AA2222',
       success: '#44EE00',
+      black: '#000000',
+      white: '#FFFFFF',
     },
     statusBar: {
       backgroundColor: '#FFFFFF',
       iconColor: '#000000',
     },
+    borderColor: {
+      regular: '#6200EE',
+      error: '#AA2222',
+      success: '#44EE00',
+      transparent: '#00000000',
+    },
   },
   fonts: customFonts,
   roundness: 8,
+  radius: {
+    buttonBorderRadius: {
+      small: ms(8),
+      regular: ms(12),
+      large: ms(16),
+      extraLarge: ms(20),
+    },
+  },
 };
 
 // Dark Theme
@@ -214,18 +234,38 @@ export const darkTheme: MD3CustomTheme = {
       alert: '#550000',
       error: '#AA2222',
       success: '#44EE00',
+      placeholder: '#A5A5A5',
+      white: '#FFFFFF',
+      black: '#000000',
+      primary: '#bb86fc',
     },
     iconColor: {
       regular: '#FFFFFF',
       alert: '#550000',
       error: '#AA2222',
       success: '#44EE00',
+      black: '#000000',
+      white: '#FFFFFF',
     },
     statusBar: {
       backgroundColor: '#000000',
       iconColor: '#FFFFFF',
     },
+    borderColor: {
+      regular: '#6200EE',
+      error: '#AA2222',
+      success: '#44EE00',
+      transparent: '#00000000',
+    },
   },
   fonts: customFonts,
   roundness: 8,
+  radius: {
+    buttonBorderRadius: {
+      small: ms(8),
+      regular: ms(12),
+      large: ms(16),
+      extraLarge: ms(20),
+    },
+  },
 };

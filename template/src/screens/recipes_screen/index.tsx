@@ -2,7 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {getRecipes} from 'api';
 import {BaseImageView} from 'components/base_components/base_image_view';
-import {ListLoader} from 'components/molecules/list_loader';
+import {ListLoader} from 'components/list_items/list_loader';
 import React from 'react';
 import {FlatList, SafeAreaView, View} from 'react-native';
 import {Text, useTheme} from 'react-native-paper';

@@ -1,0 +1,25 @@
+import React from 'react';
+import {View} from 'react-native';
+import {useTheme} from 'react-native-paper';
+import {ms} from 'react-native-size-matters';
+import {SCREEN_WIDTH} from 'utilities/constants';
+
+type DividerViewCompProps = {
+  height?: number;
+  width?: number;
+  color?: string;
+  borderRadius?: number;
+};
+
+const DividerViewComp: React.FC<DividerViewCompProps> = props => {
+  const theme = useTheme();
+  const {
+    height = ms(1),
+    width = SCREEN_WIDTH * 0.9,
+    color = theme.colors.borderColor.regular,
+    borderRadius = 0,
+  } = props;
+  return <View style={{height, width, backgroundColor: color, borderRadius}} />;
+};
+
+export const DividerView = React.memo(DividerViewComp);

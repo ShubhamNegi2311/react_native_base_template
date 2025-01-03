@@ -1,12 +1,11 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {IconView} from 'components/molecules/icon_view';
 import React from 'react';
 import {ms} from 'react-native-size-matters';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from 'screens/dashboard/home';
 import ProfileScreen from 'screens/dashboard/profile';
 import SettingsScreen from 'screens/dashboard/settings';
 import {TabBarParamList} from 'types/navigation_types';
-import {IconType} from 'utilities/enums';
 
 const TabBar = createBottomTabNavigator<TabBarParamList>();
 
@@ -20,10 +19,9 @@ const DashboardNavigator: React.FC = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <IconView
-                iconName={focused ? 'home' : 'home-outline'}
-                iconSize={iconSize}
-                iconType={IconType.MaterialCommunity}
+              <MaterialCommunityIcons
+                name={focused ? 'home' : 'home-outline'}
+                size={iconSize}
               />
             );
           },
@@ -35,10 +33,9 @@ const DashboardNavigator: React.FC = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <IconView
-                iconName={focused ? 'account' : 'account-outline'}
-                iconSize={iconSize}
-                iconType={IconType.MaterialCommunity}
+              <MaterialCommunityIcons
+                name={focused ? 'account' : 'account-outline'}
+                size={iconSize}
               />
             );
           },
@@ -50,10 +47,9 @@ const DashboardNavigator: React.FC = () => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <IconView
-                iconName={focused ? 'cog' : 'cog-outline'}
-                iconSize={iconSize}
-                iconType={IconType.MaterialCommunity}
+              <MaterialCommunityIcons
+                name={focused ? 'cog' : 'cog-outline'}
+                size={iconSize}
               />
             );
           },
