@@ -22,4 +22,5 @@ const DividerViewComp: React.FC<DividerViewCompProps> = props => {
   return <View style={{height, width, backgroundColor: color, borderRadius}} />;
 };
 
-export const DividerView = React.memo(DividerViewComp);
+const DividerView = React.memo(DividerViewComp);
+export default DividerView;

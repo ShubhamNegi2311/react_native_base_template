@@ -10,14 +10,21 @@ import {
 declare module 'react-native-paper' {
   interface MD3ThemeColors extends MD3Colors {
     success: string;
+    successContainer: string;
     warning: string;
+    warningContainer: string;
     info: string;
+    infoContainer: string;
     accent: string;
     buttonColor: {
       regular: string;
       alert: string;
       error: string;
       success: string;
+      reset: string;
+      submit: string;
+      cancel: string;
+      disabled: string;
     };
     textColor: {
       regular: string;
@@ -42,10 +49,22 @@ declare module 'react-native-paper' {
       error: string;
       success: string;
       transparent: string;
+      disabled: string;
     };
     statusBar: {
       backgroundColor: string;
       iconColor: string;
+    };
+    loader: {
+      background: string;
+      backdrop: string;
+      indicator: string;
+      shimmerBone: string;
+      shimmerHighlight: string;
+    };
+    dataTable: {
+      headerBackground: string;
+      rowBackground: string;
     };
   }
 
@@ -61,6 +80,7 @@ declare module 'react-native-paper' {
       regular: number;
       large: number;
       extraLarge: number;
+      circle: number;
     };
   }
 

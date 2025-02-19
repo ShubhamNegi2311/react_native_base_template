@@ -1,15 +1,15 @@
+import BaseText from 'components/base_components/base_text';
 import React from 'react';
 import {TextInput, View} from 'react-native';
 import {
   TextInput as PaperTextInput,
-  Text,
   TextInputProps,
   useTheme,
 } from 'react-native-paper';
 import {style} from './style';
 
-type BaseTextInputProps = TextInputProps & {
-  status: 'success' | 'error' | 'empty';
+export type BaseTextInputProps = TextInputProps & {
+  status?: 'success' | 'error' | 'empty';
   labelValue?: string;
   errorValue?: string;
   required?: boolean;
@@ -19,7 +19,7 @@ const BaseTextInputComp: React.FC<BaseTextInputProps> = props => {
   const {
     labelValue = null,
     errorValue = null,
-    status,
+    status = 'empty',
     required = false,
   } = props;
   const textInputRef = React.useRef<TextInput>(null);
@@ -39,7 +39,6 @@ const BaseTextInputComp: React.FC<BaseTextInputProps> = props => {
           return theme.colors.borderColor.transparent;
         }
       }
-
       default:
         return theme.colors.borderColor.regular;
     }
@@ -48,10 +47,12 @@ const BaseTextInputComp: React.FC<BaseTextInputProps> = props => {
   return (
     <View style={viewStyle.mainContainer}>
       {labelValue && (
-        <Text style={viewStyle.label}>
+        <BaseText style={viewStyle.label}>
           {labelValue}
-          {required && <Text style={viewStyle.requiredText}>{'*'}</Text>}
-        </Text>
+          {required && (
+            <BaseText style={viewStyle.requiredText}>{'*'}</BaseText>
+          )}
+        </BaseText>
       )}
       <PaperTextInput
         ref={textInputRef}
@@ -67,9 +68,10 @@ const BaseTextInputComp: React.FC<BaseTextInputProps> = props => {
         autoCapitalize={'none'}
         {...props}
       />
-      {errorValue && <Text style={viewStyle.error}>{errorValue}</Text>}
+      {errorValue && <BaseText style={viewStyle.error}>{errorValue}</BaseText>}
     </View>
   );
 };
 
-export const BaseTextInput = React.memo(BaseTextInputComp);
+const BaseTextInput = React.memo(BaseTextInputComp);
+export default BaseTextInput;

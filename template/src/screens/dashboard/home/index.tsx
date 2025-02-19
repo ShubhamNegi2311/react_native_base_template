@@ -1,12 +1,14 @@
-import SpaceView from 'components/atoms/space_view';
+import BaseText from 'components/base_components/base_text';
+import AnimatedLoaderButton from 'components/molecules/animated_loader_button';
+import {useDialog} from 'context/app_dialog_provider';
 import React from 'react';
 import {View} from 'react-native';
-import {Button, MaterialBottomTabScreenProps, Text} from 'react-native-paper';
+import {MaterialBottomTabScreenProps, useTheme} from 'react-native-paper';
 import {ScaledSheet, vs} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'store';
-import {updateCounter} from 'store/slices/counter_slice';
 import {TabBarParamList} from 'types/navigation_types';
+import {logoutUser} from 'utilities/utils';
 
 type HomeScreenProps = MaterialBottomTabScreenProps<
   TabBarParamList,
@@ -14,20 +16,33 @@ type HomeScreenProps = MaterialBottomTabScreenProps<
 >;
 
 const HomeScreen: React.FC<HomeScreenProps> = () => {
+  const theme = useTheme();
+  const {showDialog, hideDialog} = useDialog();
   const dispatch = useDispatch();
-  const countValue = useSelector((state: RootState) => state.counter.count);
+  const userData = useSelector((state: RootState) => state.loginData.loginData);
+
+  const handleLogoutClick = React.useCallback(() => {
+    showDialog({
+      message: 'Do you want to logout?',
+      title: 'Logout',
+      actionType: 'error',
+      isConfirmDestructive: true,
+      onConfirm: () => logoutUser(dispatch),
+      onDismiss: hideDialog,
+    });
+  }, []);
 
   return (
     <View style={style.mainContainer}>
-      <Text>{countValue}</Text>
-      <SpaceView height={vs(20)} />
-      <Button onPress={() => dispatch(updateCounter('increment'))}>
-        {'Increment'}
-      </Button>
-      <SpaceView height={vs(20)} />
-      <Button onPress={() => dispatch(updateCounter('decrement'))}>
-        {'Decrement'}
-      </Button>
+      <BaseText
+        style={theme.fonts.displayLarge}
+        children={`Welcome ${userData?.userName ?? ''}`}
+      />
+      <AnimatedLoaderButton
+        isLoading={false}
+        title={'Logout'}
+        onPress={handleLogoutClick}
+      />
     </View>
   );
 };
@@ -37,6 +52,7 @@ export default HomeScreen;
 const style = ScaledSheet.create({
   mainContainer: {
     flex: 1,
+    gap: vs(25),
     justifyContent: 'center',
     alignItems: 'center',
   },

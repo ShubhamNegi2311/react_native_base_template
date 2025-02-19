@@ -9,7 +9,6 @@ import {
   MaterialBottomTabScreenProps,
   useTheme,
 } from 'react-native-paper';
-import {RBSheetRef} from 'react-native-raw-bottom-sheet';
 import {TabBarParamList} from 'types/navigation_types';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utilities/constants';
 
@@ -22,7 +21,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = props => {
   const {toggleTheme} = useThemeContext();
   const theme = useTheme();
   const chatBottomSheetRef = React.useRef<BottomSheet>(null);
-  const sheetRef = React.useRef<RBSheetRef>(null);
 
   const openBottomSheet = React.useCallback(() => {
     chatBottomSheetRef?.current?.expand();
@@ -60,19 +58,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = props => {
       />
 
       <SpaceView height={20} />
-      <Button
-        children={'Open Raw Bottom Sheet'}
-        contentStyle={{
-          height: SCREEN_HEIGHT * 0.075,
-          width: SCREEN_WIDTH * 0.8,
-          borderRadius: 12,
-          backgroundColor: theme.colors.buttonColor.regular,
-        }}
-        labelStyle={{
-          color: theme.colors.textColor.regular,
-        }}
-        onPress={() => sheetRef?.current?.open()}
-      />
 
       <ChatBottomSheet reff={chatBottomSheetRef} />
     </SafeAreaView>

@@ -1,58 +1,51 @@
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useThemeContext} from 'context/theme_provider';
 import React from 'react';
+import {AppState, AppStateStatus, NativeEventSubscription} from 'react-native';
 import {useTheme} from 'react-native-paper';
+import {useDispatch} from 'react-redux';
 import DashboardScreen from 'screens/dashboard';
-import RecipesScreen from 'screens/recipes_screen';
+import {setShowPrivacyGuard} from 'store/slices/app_data_slice';
 import {AppStackParamList} from 'types/navigation_types';
+import {IS_ANDROID, IS_IOS} from 'utilities/constants';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppNavigator: React.FC = () => {
-  const {isDarkTheme} = useThemeContext();
   const theme = useTheme();
+  const {isDarkTheme} = useThemeContext();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    let subscription: NativeEventSubscription | null = null;
+    if (IS_IOS) {
+      subscription = AppState.addEventListener('change', handleAppStateChange);
+    }
+    return () => {
+      subscription && subscription?.remove();
+    };
+  }, []);
+
+  const handleAppStateChange = (state: AppStateStatus) => {
+    // for now we are skipping for android due to its limitations of not detecting app in recents
+    if (IS_ANDROID) return;
+    if (state === 'active') {
+      dispatch(setShowPrivacyGuard(false));
+    } else if (state === 'inactive') {
+      dispatch(setShowPrivacyGuard(true));
+    }
+  };
+
   return (
-    <NavigationContainer
-      theme={{
-        dark: isDarkTheme,
-        colors: {
-          primary: theme.colors.primary,
-          background: theme.colors.background,
-          card: theme.colors.background,
-          text: theme.colors.textColor.regular,
-          border: theme.colors.primary,
-          notification: theme.colors.background,
-        },
-        fonts: {
-          regular: {
-            fontFamily: theme.fonts.regular.fontFamily,
-            fontWeight: 'normal',
-          },
-          medium: {
-            fontFamily: theme.fonts.semiBold.fontFamily,
-            fontWeight: 'normal',
-          },
-          bold: {
-            fontFamily: theme.fonts.bold.fontFamily,
-            fontWeight: 'normal',
-          },
-          heavy: {
-            fontFamily: theme.fonts.bold.fontFamily,
-            fontWeight: 'normal',
-          },
-        },
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        statusBarStyle: isDarkTheme ? 'light' : 'dark',
+        statusBarTranslucent: false,
+        statusBarBackgroundColor: theme.colors.statusBar.backgroundColor,
       }}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          statusBarStyle: isDarkTheme ? 'light' : 'dark',
-          statusBarAnimation: 'slide',
-        }}>
-        <Stack.Screen name={'DashBoardScreen'} component={DashboardScreen} />
-        <Stack.Screen name={'RecipesScreen'} component={RecipesScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <Stack.Screen name={'DashBoardScreen'} component={DashboardScreen} />
+    </Stack.Navigator>
   );
 };
 

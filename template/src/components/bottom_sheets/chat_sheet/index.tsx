@@ -28,10 +28,14 @@ const ChatSheet: React.FC<ChatSheetProps> = props => {
 
   React.useEffect(() => {
     if (currentIndex !== -1) {
-      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      const handler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress,
+      );
 
-      return () =>
-        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      return () => {
+        handler.remove();
+      };
     }
   }, [currentIndex]);
 

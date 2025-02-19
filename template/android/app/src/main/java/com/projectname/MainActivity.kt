@@ -1,6 +1,5 @@
 package com.projectname
 
-import android.os.Bundle
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
@@ -11,6 +10,11 @@ class MainActivity : ReactActivity() {
   /** React Native Screens Crash Fix */
   override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      // Prevents app preview in Recents and blocks screenshots
+      window.setFlags(
+          WindowManager.LayoutParams.FLAG_SECURE,
+          WindowManager.LayoutParams.FLAG_SECURE
+      )
   }
 
   /**

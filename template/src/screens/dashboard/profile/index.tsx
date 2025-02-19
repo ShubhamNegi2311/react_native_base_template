@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {BaseImageView} from 'components/base_components/base_image_view';
+import BaseImageView from 'components/base_components/base_image_view';
 import React from 'react';
 import {View} from 'react-native';
 import {
@@ -31,9 +31,9 @@ const DemoOne: React.FC = () => {
       <BaseImageView
         height={SCREEN_HEIGHT * 0.5}
         width={SCREEN_WIDTH * 0.5}
-        imageURL={
-          'https://upload.wikimedia.org/wikipedia/commons/e/e6/Clocktower_Panorama_20080622_20mb.jpg'
-        }
+        source={{
+          uri: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Clocktower_Panorama_20080622_20mb.jpg',
+        }}
         borderRadius={14}
       />
     </View>

@@ -1,72 +1,92 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import {Image, ImageSourcePropType, View} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import Skeleton from 'react-native-reanimated-skeleton';
+import {ScaledSheet} from 'react-native-size-matters';
 
 type BaseImageProps = {
-  imageURL: string;
+  source: ImageSourcePropType;
   height: number;
   width: number;
   borderRadius?: number;
+  borderWidth?: number;
+  borderColor?: string;
   topBorderOnly?: boolean;
+  containImage?: boolean;
 };
 
 const BaseImage: React.FC<BaseImageProps> = props => {
-  const {height, width, imageURL, topBorderOnly = false} = props;
+  const theme = useTheme();
+  const {
+    height,
+    width,
+    source,
+    borderRadius = 0,
+    topBorderOnly = false,
+    borderWidth = 0,
+    borderColor = 'transparent',
+    containImage = false,
+  } = props;
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
-  const handleImageLoading = (value: boolean, label: string) =>
-    setIsLoading(value);
+  const stopImageLoading = () => setIsLoading(false);
+  const onImageLoadingError = () => setIsLoading(false);
 
   return (
-    <>
-      {isLoading ? (
-        <View style={{position: 'absolute', zIndex: 1}}>
+    <View>
+      {isLoading && (
+        <View style={style.shimmerViewContainer}>
           <Skeleton
             isLoading={true}
             animationType={'shiver'}
-            animationDirection={'horizontalRight'}
+            animationDirection={'diagonalDownRight'}
             duration={2000}
-            boneColor={'#787878'}
-            highlightColor={'#999999'}>
-            <Image
+            boneColor={theme.colors.loader.shimmerBone}
+            highlightColor={theme.colors.loader.shimmerHighlight}>
+            <View
               style={{
-                width: width,
-                height: height,
+                width,
+                height,
+                padding: borderWidth ? width * 0.1 : 0,
                 ...(topBorderOnly
                   ? {
-                      borderTopLeftRadius: props?.borderRadius ?? 0,
-                      borderTopRightRadius: props?.borderRadius ?? 0,
+                      borderTopLeftRadius: borderRadius,
+                      borderTopRightRadius: borderRadius,
                     }
-                  : {borderRadius: props?.borderRadius ?? 0}),
+                  : {borderRadius}),
               }}
             />
           </Skeleton>
         </View>
-      ) : (
-        false
       )}
 
       <Image
         style={{
-          width: width,
-          height: height,
+          width,
+          height,
+          padding: borderWidth ? width * 0.1 : 0,
           ...(topBorderOnly
             ? {
-                borderTopLeftRadius: props?.borderRadius ?? 0,
-                borderTopRightRadius: props?.borderRadius ?? 0,
+                borderTopLeftRadius: borderRadius,
+                borderTopRightRadius: borderRadius,
               }
-            : {borderRadius: props?.borderRadius ?? 0}),
+            : {borderRadius}),
+          borderWidth,
+          borderColor,
         }}
-        source={{
-          uri: imageURL,
-        }}
+        source={source}
         resizeMethod={'resize'}
-        resizeMode={'cover'}
-        onLoadStart={() => handleImageLoading(true, 'onLoadStart')}
-        onLoadEnd={() => handleImageLoading(false, 'onLoadStart')}
+        resizeMode={containImage ? 'contain' : 'cover'}
+        onLoadEnd={stopImageLoading}
+        onError={onImageLoadingError}
       />
-    </>
+    </View>
   );
 };
 
-export const BaseImageView = React.memo(BaseImage);
+const BaseImageView = React.memo(BaseImage);
+export default BaseImageView;
+
+const style = ScaledSheet.create({
+  shimmerViewContainer: {position: 'absolute', zIndex: 1},
+});
