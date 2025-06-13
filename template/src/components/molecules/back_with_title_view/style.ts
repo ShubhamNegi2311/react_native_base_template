@@ -1,5 +1,5 @@
-import {ScaledSheet} from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
-export const style = ScaledSheet.create({
-  mainContainer: {width: '100%', flexDirection: 'row', alignItems: 'center'},
+export const style = StyleSheet.create({
+  mainContainer: { width: '100%', flexDirection: 'row', alignItems: 'center' },
 });

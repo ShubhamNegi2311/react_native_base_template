@@ -1,4 +1,5 @@
 import BaseText from 'components/base_components/base_text';
+import {useThemeContext} from 'context/theme_provider';
 import React from 'react';
 import {TextInput, View} from 'react-native';
 import {
@@ -22,51 +23,26 @@ const BaseTextInputComp: React.FC<BaseTextInputProps> = props => {
     status = 'empty',
     required = false,
   } = props;
+  const {isDarkTheme} = useThemeContext();
   const textInputRef = React.useRef<TextInput>(null);
   const theme = useTheme();
   const viewStyle = style(theme);
 
-  const outlineColor = React.useMemo(() => {
-    switch (status) {
-      case 'success':
-        return theme.colors.borderColor.success;
-      case 'error':
-        return theme.colors.borderColor.error;
-      case 'empty': {
-        if (textInputRef.current?.isFocused() ?? false) {
-          return theme.colors.borderColor.regular;
-        } else {
-          return theme.colors.borderColor.transparent;
-        }
-      }
-      default:
-        return theme.colors.borderColor.regular;
-    }
-  }, [status, textInputRef]);
-
   return (
     <View style={viewStyle.mainContainer}>
-      {labelValue && (
-        <BaseText style={viewStyle.label}>
-          {labelValue}
-          {required && (
-            <BaseText style={viewStyle.requiredText}>{'*'}</BaseText>
-          )}
-        </BaseText>
-      )}
       <PaperTextInput
         ref={textInputRef}
         style={viewStyle.textInput}
-        outlineColor={outlineColor}
-        underlineColor={'transparent'}
-        mode={'outlined'}
-        placeholderTextColor={theme.colors.textColor.placeholder}
-        outlineStyle={{
-          borderRadius: theme.radius.buttonBorderRadius.small,
-        }}
+        contentStyle={theme.fonts.regular}
+        placeholderTextColor={theme.colors.textInput.placeholder}
         error={errorValue ? true : false}
         autoCapitalize={'none'}
+        outlineColor={'transparent'}
+        underlineColor={'transparent'}
+        underlineStyle={{width: 0}}
+        mode={'flat'}
         {...props}
+        keyboardAppearance={isDarkTheme ? 'dark' : 'light'}
       />
       {errorValue && <BaseText style={viewStyle.error}>{errorValue}</BaseText>}
     </View>

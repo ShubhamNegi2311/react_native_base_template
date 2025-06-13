@@ -1,6 +1,6 @@
-import {BASE_URL, PAGE_SIZE} from 'utilities/constants';
-import {axiosInstance} from './api_client';
-import {GET_RECEPIES} from './api_urls';
+import { BASE_URL, PAGE_SIZE } from 'utilities/constants';
+import { axiosInstance } from './api_client';
+import { GET_RECEPIES } from './api_urls';
 
 export const getRecipes = async (page: number = 1) => {
   const response = await axiosInstance(BASE_URL).get(GET_RECEPIES, {

@@ -1,11 +1,13 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {Modal, Portal, useTheme} from 'react-native-paper';
-import {ms} from 'react-native-size-matters';
 import Toast, {
   ErrorToast,
   SuccessToast,
   ToastConfig,
 } from 'react-native-toast-message';
+import {ms} from 'utilities/scale_utils';
+import {style} from './style';
 
 type BaseModalProps = {
   visible: boolean;
@@ -47,7 +49,7 @@ const toastConfig: ToastConfig = {
 };
 
 const BaseModalComp: React.FC<BaseModalProps> = props => {
-  const {visible, children, onClose, avoidKeyboard = false} = props;
+  const {visible, children, onClose} = props;
   const theme = useTheme();
 
   return (
@@ -56,6 +58,7 @@ const BaseModalComp: React.FC<BaseModalProps> = props => {
         visible={visible}
         dismissable
         onDismiss={onClose}
+        style={[StyleSheet.absoluteFill, style(theme).modalView]}
         dismissableBackButton
         theme={theme}>
         {children}

@@ -16,6 +16,7 @@ declare module 'react-native-paper' {
     info: string;
     infoContainer: string;
     accent: string;
+    transparent: string;
     buttonColor: {
       regular: string;
       alert: string;
@@ -25,6 +26,7 @@ declare module 'react-native-paper' {
       submit: string;
       cancel: string;
       disabled: string;
+      transparent: string;
     };
     textColor: {
       regular: string;
@@ -50,6 +52,7 @@ declare module 'react-native-paper' {
       success: string;
       transparent: string;
       disabled: string;
+      primary: string;
     };
     statusBar: {
       backgroundColor: string;
@@ -66,6 +69,25 @@ declare module 'react-native-paper' {
       headerBackground: string;
       rowBackground: string;
     };
+    textInput: {
+      label: string;
+      text: string;
+      placeholder: string;
+      successMessage: string;
+      errorMessage: string;
+      border: string;
+      errorBorder: string;
+      background: string;
+    };
+    bottomTabBar: {
+      titleSelected: string;
+      titleUnselected: string;
+      iconSelected: string;
+      iconUnselected: string;
+    };
+    card: {
+      cardBackground: string;
+    };
   }
 
   interface MD3ThemeFonts extends MD3Typescale {
@@ -75,13 +97,11 @@ declare module 'react-native-paper' {
   }
 
   interface BorderRoundness {
-    buttonBorderRadius: {
-      small: number;
-      regular: number;
-      large: number;
-      extraLarge: number;
-      circle: number;
-    };
+    small: number;
+    regular: number;
+    large: number;
+    extraLarge: number;
+    circle: number;
   }
 
   export interface MD3CustomTheme extends MD3Theme {

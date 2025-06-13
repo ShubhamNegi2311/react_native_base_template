@@ -1,66 +1,51 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import SpaceView from 'components/atoms/space_view';
 import ChatBottomSheet from 'components/bottom_sheets/chat_sheet';
-import {useThemeContext} from 'context/theme_provider';
+import ThemeSelectorDialog from 'components/modals/theme_selector_modal';
+import AnimatedLoaderButton from 'components/molecules/animated_loader_button';
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {
-  Button,
-  MaterialBottomTabScreenProps,
-  useTheme,
-} from 'react-native-paper';
-import {TabBarParamList} from 'types/navigation_types';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utilities/constants';
+import {View} from 'react-native';
+import {MaterialBottomTabScreenProps, useTheme} from 'react-native-paper';
+import {DashbordBottomTabBarParamList} from 'types/navigation_types';
 
 type SettingsScreenProps = MaterialBottomTabScreenProps<
-  TabBarParamList,
+  DashbordBottomTabBarParamList,
   'SettingsScreen'
 >;
 
 const SettingsScreen: React.FC<SettingsScreenProps> = props => {
-  const {toggleTheme} = useThemeContext();
   const theme = useTheme();
-  const chatBottomSheetRef = React.useRef<BottomSheet>(null);
+  const chatBottomSheetRef = React.useRef<BottomSheet | null>(null);
+  const [showSelectThemeDialog, setShowSelectThemeDialog] =
+    React.useState(false);
 
   const openBottomSheet = React.useCallback(() => {
     chatBottomSheetRef?.current?.expand();
   }, []);
 
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Button
-        children={'Change Theme'}
-        contentStyle={{
-          height: SCREEN_HEIGHT * 0.075,
-          width: SCREEN_WIDTH * 0.8,
-          borderRadius: 12,
-          backgroundColor: theme.colors.buttonColor.regular,
-        }}
-        labelStyle={{
-          color: theme.colors.textColor.regular,
-        }}
-        onPress={toggleTheme}
+    <View
+      style={{
+        height: '100%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <AnimatedLoaderButton
+        title={'Change Theme'}
+        onPress={() => setShowSelectThemeDialog(true)}
       />
       <SpaceView height={20} />
-      <Button
-        children={'Open Gorhom Bottom Sheet'}
-        contentStyle={{
-          height: SCREEN_HEIGHT * 0.075,
-          width: SCREEN_WIDTH * 0.8,
-          borderRadius: 12,
-          backgroundColor: theme.colors.buttonColor.regular,
-        }}
-        labelStyle={{
-          color: theme.colors.textColor.regular,
-        }}
+      <AnimatedLoaderButton
+        title={'Open Gorhom Bottom Sheet'}
         onPress={openBottomSheet}
       />
-
-      <SpaceView height={20} />
-
       <ChatBottomSheet reff={chatBottomSheetRef} />
-    </SafeAreaView>
+      <ThemeSelectorDialog
+        visible={showSelectThemeDialog}
+        onClose={() => setShowSelectThemeDialog(false)}
+      />
+    </View>
   );
 };
 

@@ -3,11 +3,11 @@ import BaseText from 'components/base_components/base_text';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Animated, {
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {ms} from 'react-native-size-matters';
 import Svg, {Defs, LinearGradient, Rect, Stop} from 'react-native-svg';
 import {useDispatch} from 'react-redux';
 import {TValidateLoginDetailResponse} from 'types/api_response_data_models';
@@ -15,8 +15,8 @@ import {AuthenticationStackParamList} from 'types/navigation_types';
 import {AsyncStorageKeys} from 'utilities/async_storage_keys';
 import {ReadDataFromAsyncStorage} from 'utilities/async_storage_utils';
 import {FONT_BOLD, SCREEN_WIDTH} from 'utilities/constants';
+import {ms} from 'utilities/scale_utils';
 import {loginUser} from 'utilities/utils';
-
 type SplashScreenProps = NativeStackScreenProps<
   AuthenticationStackParamList,
   'SplashScreen'
@@ -45,21 +45,27 @@ const SplashScreen: React.FC<SplashScreenProps> = props => {
 
   React.useEffect(() => {
     // Start the scaling animation after a short delay
-    scaleValue.value = withTiming(1, {duration: 1500}, () => {
-      lineWidthValue.value = withTiming(
-        SCREEN_WIDTH * 0.5,
-        {duration: 500},
-        () => {
-          bottomTextFadeValue.value = withTiming(1, {duration: 500});
-        },
-      );
+    scaleValue.value = withTiming(1, {duration: 1500}, completed => {
+      if (completed) {
+        lineWidthValue.value = withTiming(
+          SCREEN_WIDTH * 0.5,
+          {duration: 500},
+          completed => {
+            if (completed) {
+              bottomTextFadeValue.value = withTiming(
+                1,
+                {duration: 500},
+                completed => {
+                  if (completed) {
+                    runOnJS(checkUserLoginStatus)();
+                  }
+                },
+              );
+            }
+          },
+        );
+      }
     });
-
-    const timeOut = setTimeout(() => {
-      checkUserLoginStatus();
-    }, 2500);
-
-    return () => clearTimeout(timeOut);
   }, []);
 
   // handle this part insdie splash screen to avoid screen flicker/ change.

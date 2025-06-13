@@ -8,14 +8,16 @@ import {
   MaterialBottomTabScreenProps,
   useTheme,
 } from 'react-native-paper';
-import {Tabs, TabScreen, TabsProvider} from 'react-native-paper-tabs';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import {AppStackParamList, TabBarParamList} from 'types/navigation_types';
-import {FONT_BOLD, SCREEN_HEIGHT, SCREEN_WIDTH} from 'utilities/constants';
+import {
+  AppStackParamList,
+  DashbordBottomTabBarParamList,
+} from 'types/navigation_types';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utilities/constants';
 import {globalStyle} from 'utilities/global_styles';
 
 type ProfileScreenProps = MaterialBottomTabScreenProps<
-  TabBarParamList,
+  DashbordBottomTabBarParamList,
   'ProfileScreen'
 >;
 
@@ -64,24 +66,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = props => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={globalStyle.screenContainer}>
-        <TabsProvider defaultIndex={1}>
-          <Tabs
-            mode={'fixed'}
-            showLeadingSpace={false}
-            tabLabelStyle={{fontFamily: FONT_BOLD}}>
-            <TabScreen label="One">
-              <DemoOne />
-            </TabScreen>
-            <TabScreen label="Two">
-              <DemoTwo />
-            </TabScreen>
-            <TabScreen label="Three">
-              <DemoThree />
-            </TabScreen>
-          </Tabs>
-        </TabsProvider>
-      </SafeAreaView>
+      <SafeAreaView style={globalStyle.screenContainer}></SafeAreaView>
     </SafeAreaProvider>
   );
 };

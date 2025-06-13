@@ -25,7 +25,11 @@ const OTPField: React.ForwardRefRenderFunction<
 > = (props, forwardRef) => {
   const theme = useTheme();
   const viewStyle = style(theme);
-  const {otpLength, onOTPFilled, boxSize = SCREEN_WIDTH * 0.15} = props;
+  const {
+    otpLength,
+    onOTPFilled,
+    boxSize = SCREEN_WIDTH / (otpLength + 1),
+  } = props;
   const [otpValue, setOTPValue] = React.useState<string>('');
   const textInputsRef = React.useRef<TextInput[]>([]);
 
@@ -47,29 +51,17 @@ const OTPField: React.ForwardRefRenderFunction<
   ) => {
     const key = e.nativeEvent.key;
     if (key === 'Backspace') {
-      if ((otpValue[index] ?? '') === '') {
-        setOTPValue(prev => {
-          return prev.slice(0, index);
-        });
-        if (index !== 0) {
-          textInputsRef?.current[index]?.blur();
-          textInputsRef?.current[index - 1]?.focus();
-        }
-      } else {
-        setOTPValue(prev => {
-          return prev.slice(0, index);
-        });
-        if (index !== 0) {
-          textInputsRef?.current[index]?.blur();
-          textInputsRef?.current[index]?.focus();
-        }
+      setOTPValue(prev => {
+        return prev.slice(0, index);
+      });
+      if (index !== 0) {
+        textInputsRef?.current[index - 1]?.focus();
       }
     } else {
       setOTPValue(prev => {
         return prev.concat(key);
       });
       if (index !== otpLength - 1) {
-        textInputsRef?.current[index]?.blur();
         textInputsRef?.current[index + 1]?.focus();
       }
     }
@@ -78,6 +70,8 @@ const OTPField: React.ForwardRefRenderFunction<
   React.useEffect(() => {
     if (otpValue.trim().length === otpLength) {
       onOTPFilled(otpValue);
+    } else {
+      onOTPFilled('');
     }
   }, [otpValue, otpLength]);
 
@@ -86,18 +80,37 @@ const OTPField: React.ForwardRefRenderFunction<
       {[...Array(otpLength)].map((_, index) => {
         return (
           <TextInput
-            ref={input => (textInputsRef.current[index] = input!)}
+            ref={input => {
+              if (input) {
+                textInputsRef.current[index] = input!;
+              }
+            }}
             value={otpValue[index]}
             key={index}
-            keyboardType={'decimal-pad'}
+            keyboardType={'number-pad'}
+            placeholder={'-'}
             style={[
               theme.fonts.headlineMedium,
               viewStyle.boxContainer,
               {
                 height: boxSize,
                 width: boxSize,
+                borderColor: otpValue[index]
+                  ? theme.colors.borderColor.primary
+                  : theme.colors.borderColor.regular,
               },
             ]}
+            onFocus={() => {
+              // Check if the length of otpValue is equal to the current index + 1
+              // This means that the user is focusing on the last available field
+              if (otpValue.length === index + 1) {
+                // Focus on the current field if it's the last entered field
+                textInputsRef.current[index]?.focus();
+              } else {
+                // If the field is not the last one, move focus to the last filled field
+                textInputsRef.current[otpValue.length - 1]?.focus();
+              }
+            }}
             onKeyPress={e => {
               handleKeyPress(e, index);
             }}
@@ -109,4 +122,5 @@ const OTPField: React.ForwardRefRenderFunction<
   );
 };
 
-export const OTPFieldView = React.forwardRef(OTPField);
+const OTPFieldView = React.memo(React.forwardRef(OTPField));
+export default OTPFieldView;

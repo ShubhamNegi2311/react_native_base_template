@@ -1,4 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useThemeContext} from 'context/theme_provider';
 import AppNavigator from 'navigation/app_navigator';
 import AuthenticationNavigator from 'navigation/auth_navigator';
@@ -6,6 +7,8 @@ import React from 'react';
 import {useTheme} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {RootState} from 'store';
+
+const RootStack = createNativeStackNavigator();
 
 const RootNavigator: React.FC = () => {
   const userLoginStatus = useSelector((state: RootState) => state.loginData);
@@ -43,11 +46,22 @@ const RootNavigator: React.FC = () => {
           },
         },
       }}>
-      {userLoginStatus.isUserLoggedIn ? (
-        <AppNavigator />
-      ) : (
-        <AuthenticationNavigator />
-      )}
+      <RootStack.Navigator
+        screenOptions={{
+          headerShown: false,
+          statusBarStyle: isDarkTheme ? 'light' : 'dark',
+          statusBarTranslucent: false,
+          statusBarBackgroundColor: theme.colors.statusBar.backgroundColor,
+        }}>
+        {userLoginStatus.isUserLoggedIn ? (
+          <RootStack.Screen name={'AppNavigator'} component={AppNavigator} />
+        ) : (
+          <RootStack.Screen
+            name={'AuthenticationNavigator'}
+            component={AuthenticationNavigator}
+          />
+        )}
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 };

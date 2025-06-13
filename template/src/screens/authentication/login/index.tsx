@@ -1,15 +1,15 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import BaseTextInput from 'components/base_components/base_text_input';
 import AnimatedLoaderButton from 'components/molecules/animated_loader_button';
 import React from 'react';
-import {Controller, SubmitHandler, useForm} from 'react-hook-form';
-import {KeyboardAvoidingView, SafeAreaView} from 'react-native';
-import {TextInput, useTheme} from 'react-native-paper';
-import {ms, vs} from 'react-native-size-matters';
-import {useDispatch} from 'react-redux';
-import {TValidateLoginDetailResponse} from 'types/api_response_data_models';
-import {AuthenticationStackParamList} from 'types/navigation_types';
-import {loginUser} from 'utilities/utils';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { TextInput, useTheme } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
+import { TValidateLoginDetailResponse } from 'types/api_response_data_models';
+import { AuthenticationStackParamList } from 'types/navigation_types';
+import { ms, vs } from 'utilities/scale_utils';
+import { loginUser } from 'utilities/utils';
 
 type LoginScreenProps = NativeStackScreenProps<
   AuthenticationStackParamList,
@@ -31,7 +31,7 @@ const LoginScreen: React.FC<LoginScreenProps> = props => {
     handleSubmit,
     setValue,
     setError,
-    formState: {errors},
+    formState: { errors },
   } = useForm<TFormData>();
 
   const dispatch = useDispatch();
@@ -64,7 +64,8 @@ const LoginScreen: React.FC<LoginScreenProps> = props => {
         backgroundColor: theme.colors.background,
         justifyContent: 'center',
         alignItems: 'center',
-      }}>
+      }}
+    >
       <KeyboardAvoidingView
         behavior={'padding'}
         keyboardVerticalOffset={vs(30)}
@@ -74,17 +75,18 @@ const LoginScreen: React.FC<LoginScreenProps> = props => {
           gap: ms(10),
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
+        }}
+      >
         <Controller
           control={control}
           name={'email'}
-          rules={{required: 'Email cannot be empty!'}}
-          render={({field: {onBlur, value}}) => (
+          rules={{ required: 'Email cannot be empty!' }}
+          render={({ field: { onBlur, value } }) => (
             <BaseTextInput
               value={value}
               onChangeText={text => {
                 setValue('email', text);
-                setError('email', {message: ''});
+                setError('email', { message: '' });
               }}
               onBlur={onBlur}
               outlineColor={theme.colors.borderColor.regular}
@@ -98,13 +100,13 @@ const LoginScreen: React.FC<LoginScreenProps> = props => {
         <Controller
           control={control}
           name={'password'}
-          rules={{required: 'Password cannot be empty!'}}
-          render={({field: {onBlur, value}}) => (
+          rules={{ required: 'Password cannot be empty!' }}
+          render={({ field: { onBlur, value } }) => (
             <BaseTextInput
               value={value}
               onChangeText={text => {
                 setValue('password', text);
-                setError('password', {message: ''});
+                setError('password', { message: '' });
               }}
               onBlur={onBlur}
               outlineColor={theme.colors.borderColor.regular}

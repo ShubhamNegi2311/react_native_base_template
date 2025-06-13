@@ -1,9 +1,9 @@
+import {StyleSheet} from 'react-native';
 import {MD3CustomTheme} from 'react-native-paper';
-import {ScaledSheet} from 'react-native-size-matters';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from 'utilities/constants';
 
 export const style = (theme: MD3CustomTheme) =>
-  ScaledSheet.create({
+  StyleSheet.create({
     mainContainer: {
       height: SCREEN_HEIGHT,
       width: SCREEN_WIDTH,
@@ -15,7 +15,7 @@ export const style = (theme: MD3CustomTheme) =>
     loaderBackgroundContainer: {
       height: SCREEN_WIDTH * 0.4,
       width: SCREEN_WIDTH * 0.4,
-      borderRadius: theme.radius.buttonBorderRadius.regular,
+      borderRadius: theme.radius.regular,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.loader.background,

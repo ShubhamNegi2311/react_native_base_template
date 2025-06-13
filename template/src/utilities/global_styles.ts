@@ -1,6 +1,6 @@
-import {ScaledSheet} from 'react-native-size-matters';
+import { StyleSheet } from 'react-native';
 
-export const globalStyle = ScaledSheet.create({
+export const globalStyle = StyleSheet.create({
   screenContainer: {
     height: '100%',
     width: '100%',

@@ -1,4 +1,4 @@
-import MaterialIcon from 'components/atoms/material_icon';
+import MaterialIcon from '@react-native-vector-icons/material-design-icons';
 import BaseModal from 'components/base_components/base_modal';
 import BaseText from 'components/base_components/base_text';
 import BounceView from 'components/molecules/bounce_view';
@@ -7,9 +7,9 @@ import React from 'react';
 import {View} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import Animated, {ZoomIn, ZoomOut} from 'react-native-reanimated';
-import {ms, vs} from 'react-native-size-matters';
 import {TDialogOptions} from 'types/app_data_models';
 import {SCREEN_WIDTH} from 'utilities/constants';
+import {ms, vs} from 'utilities/scale_utils';
 
 type TDialogColors = {
   iconBackgroundSmall: string;
@@ -82,7 +82,7 @@ const AppDialogComp: React.FC<TDialogOptions> = props => {
         style={{
           width: SCREEN_WIDTH * 0.9,
           alignSelf: 'center',
-          borderRadius: theme.radius.buttonBorderRadius.regular,
+          borderRadius: theme.radius.regular,
           backgroundColor: theme.colors.background,
           gap: vs(10),
           paddingTop: ms(20),
@@ -92,7 +92,7 @@ const AppDialogComp: React.FC<TDialogOptions> = props => {
           style={{
             height: SCREEN_WIDTH * 0.2,
             width: SCREEN_WIDTH * 0.2,
-            borderRadius: theme.radius.buttonBorderRadius.circle,
+            borderRadius: theme.radius.circle,
             backgroundColor: getColors(actionType).iconBackgroundLarge,
             justifyContent: 'center',
             alignItems: 'center',
@@ -101,13 +101,13 @@ const AppDialogComp: React.FC<TDialogOptions> = props => {
             style={{
               height: SCREEN_WIDTH * 0.15,
               width: SCREEN_WIDTH * 0.15,
-              borderRadius: theme.radius.buttonBorderRadius.circle,
+              borderRadius: theme.radius.circle,
               backgroundColor: getColors(actionType).iconBackgroundSmall,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <MaterialIcon
-              name={getColors(actionType).iconName}
+              name={getColors(actionType).iconName as any}
               size={ms(30)}
               color={getColors(actionType).iconColor}
             />
@@ -131,7 +131,7 @@ const AppDialogComp: React.FC<TDialogOptions> = props => {
               backgroundColor: isDismissDestructive
                 ? theme.colors.error
                 : theme.colors.primary,
-              borderRadius: theme.radius.buttonBorderRadius.small,
+              borderRadius: theme.radius.small,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -149,7 +149,7 @@ const AppDialogComp: React.FC<TDialogOptions> = props => {
               backgroundColor: isConfirmDestructive
                 ? theme.colors.error
                 : theme.colors.primary,
-              borderRadius: theme.radius.buttonBorderRadius.small,
+              borderRadius: theme.radius.small,
               justifyContent: 'center',
               alignItems: 'center',
             }}

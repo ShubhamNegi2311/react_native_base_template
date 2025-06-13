@@ -2,16 +2,16 @@ import BaseText from 'components/base_components/base_text';
 import AnimatedLoaderButton from 'components/molecules/animated_loader_button';
 import {useDialog} from 'context/app_dialog_provider';
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MaterialBottomTabScreenProps, useTheme} from 'react-native-paper';
-import {ScaledSheet, vs} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'store';
-import {TabBarParamList} from 'types/navigation_types';
+import {DashbordBottomTabBarParamList} from 'types/navigation_types';
+import {vs} from 'utilities/scale_utils';
 import {logoutUser} from 'utilities/utils';
 
 type HomeScreenProps = MaterialBottomTabScreenProps<
-  TabBarParamList,
+  DashbordBottomTabBarParamList,
   'HomeScreen'
 >;
 
@@ -49,7 +49,7 @@ const HomeScreen: React.FC<HomeScreenProps> = () => {
 
 export default HomeScreen;
 
-const style = ScaledSheet.create({
+const style = StyleSheet.create({
   mainContainer: {
     flex: 1,
     gap: vs(25),

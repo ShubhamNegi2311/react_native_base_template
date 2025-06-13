@@ -9,7 +9,7 @@ import {BackHandler} from 'react-native';
 import {style} from './style';
 
 type ChatSheetProps = {
-  reff: RefObject<BottomSheet>;
+  reff: RefObject<BottomSheet | null>;
 };
 
 const ChatSheet: React.FC<ChatSheetProps> = props => {

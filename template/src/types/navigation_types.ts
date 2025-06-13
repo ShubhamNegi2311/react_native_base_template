@@ -8,7 +8,7 @@ export type AuthenticationStackParamList = {
   SplashScreen: undefined;
 };
 
-export type TabBarParamList = {
+export type DashbordBottomTabBarParamList = {
   HomeScreen: undefined;
   ProfileScreen: undefined;
   SettingsScreen: undefined;

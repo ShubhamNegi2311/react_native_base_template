@@ -1,60 +1,27 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import BottomTabBarView from 'components/organisms/bottom_tab_bar';
 import React from 'react';
-import {ms} from 'react-native-size-matters';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import HomeScreen from 'screens/dashboard/home';
 import ProfileScreen from 'screens/dashboard/profile';
 import SettingsScreen from 'screens/dashboard/settings';
-import {TabBarParamList} from 'types/navigation_types';
+import {DashbordBottomTabBarParamList} from 'types/navigation_types';
+import {SCREEN_WIDTH} from 'utilities/constants';
 
-const TabBar = createBottomTabNavigator<TabBarParamList>();
+const TabBar = createBottomTabNavigator<DashbordBottomTabBarParamList>();
 
 const DashboardNavigator: React.FC = () => {
-  const iconSize = ms(25);
+  const {top} = useSafeAreaInsets();
   return (
-    <TabBar.Navigator>
-      <TabBar.Screen
-        name={'HomeScreen'}
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({focused}) => {
-            return (
-              <MaterialCommunityIcons
-                name={focused ? 'home' : 'home-outline'}
-                size={iconSize}
-              />
-            );
-          },
-        }}
-      />
-      <TabBar.Screen
-        name={'ProfileScreen'}
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({focused}) => {
-            return (
-              <MaterialCommunityIcons
-                name={focused ? 'account' : 'account-outline'}
-                size={iconSize}
-              />
-            );
-          },
-        }}
-      />
-      <TabBar.Screen
-        name={'SettingsScreen'}
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: ({focused}) => {
-            return (
-              <MaterialCommunityIcons
-                name={focused ? 'cog' : 'cog-outline'}
-                size={iconSize}
-              />
-            );
-          },
-        }}
-      />
+    <TabBar.Navigator
+      tabBar={props => <BottomTabBarView {...props} />}
+      screenOptions={{
+        header: () => <View style={{height: top, width: SCREEN_WIDTH}} />,
+      }}>
+      <TabBar.Screen name={'HomeScreen'} component={HomeScreen} />
+      <TabBar.Screen name={'ProfileScreen'} component={ProfileScreen} />
+      <TabBar.Screen name={'SettingsScreen'} component={SettingsScreen} />
     </TabBar.Navigator>
   );
 };
