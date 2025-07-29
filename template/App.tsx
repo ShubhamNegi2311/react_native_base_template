@@ -1,21 +1,21 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import AppLoader from 'components/hoc/app_loader';
-import { AppDialogProvider } from 'context/app_dialog_provider';
-import { ThemeProvider, useThemeContext } from 'context/theme_provider';
+import {AppDialogProvider} from 'context/app_dialog_provider';
+import {ThemeProvider, useThemeContext} from 'context/theme_provider';
 import RootNavigator from 'navigation/root_navigator';
 import React from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { PaperProvider } from 'react-native-paper';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {PaperProvider} from 'react-native-paper';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Toast, {
   ErrorToast,
   SuccessToast,
   ToastConfig,
 } from 'react-native-toast-message';
-import { Provider as ReduxProvider } from 'react-redux';
-import { store } from 'store';
-import { ms } from 'utilities/scale_utils';
-import { darkTheme, lightTheme } from 'utilities/theme';
+import {Provider as ReduxProvider} from 'react-redux';
+import {store} from 'store';
+import {ms} from 'utilities/scale_utils';
+import {darkTheme, lightTheme} from 'utilities/theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,7 +59,7 @@ const toastConfig: ToastConfig = {
 };
 
 const MainApp: React.FC = () => {
-  const { isDarkTheme } = useThemeContext();
+  const {isDarkTheme} = useThemeContext();
 
   return (
     <>
