@@ -1,7 +1,7 @@
 import BaseText from 'components/base_components/base_text';
 import React from 'react';
 import {Menu, useTheme} from 'react-native-paper';
-import {ms} from 'react-native-size-matters';
+import {ms} from 'utilities/scale_utils';
 import BounceView from '../bounce_view';
 
 export type TPopupMenuListItem = {

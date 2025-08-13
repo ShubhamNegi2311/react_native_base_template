@@ -1,9 +1,8 @@
 import MaskedView from '@react-native-masked-view/masked-view';
 import React from 'react';
-import {TextProps as NativeTextProps} from 'react-native';
+import {TextProps as NativeTextProps, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Text as PaperText, TextProps} from 'react-native-paper';
-import {ScaledSheet} from 'react-native-size-matters';
 
 type GradientTextProps = TextProps<NativeTextProps> & {
   gradientColors: string[]; // atleast 2 colors are required for gradient. for single color add same color two times.
@@ -34,7 +33,7 @@ const GradientText: React.FC<GradientTextProps> = props => {
 
 export default GradientText;
 
-const styles = ScaledSheet.create({
+const styles = StyleSheet.create({
   maskedText: {
     color: 'black', // Required for mask
     textAlign: 'center',

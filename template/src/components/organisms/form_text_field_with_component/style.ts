@@ -1,9 +1,10 @@
+import {StyleSheet} from 'react-native';
 import {MD3CustomTheme} from 'react-native-paper';
-import {ms, ScaledSheet} from 'react-native-size-matters';
 import {SCREEN_HEIGHT} from 'utilities/constants';
+import {ms} from 'utilities/scale_utils';
 
 export const style = (theme: MD3CustomTheme) =>
-  ScaledSheet.create({
+  StyleSheet.create({
     parentContainer: {
       width: '100%',
     },

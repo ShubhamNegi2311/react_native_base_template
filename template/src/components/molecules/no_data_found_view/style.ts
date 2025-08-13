@@ -1,8 +1,8 @@
+import {StyleSheet} from 'react-native';
 import {MD3CustomTheme} from 'react-native-paper';
-import {ScaledSheet} from 'react-native-size-matters';
 
 export const style = (theme: MD3CustomTheme, height: number, width: number) =>
-  ScaledSheet.create({
+  StyleSheet.create({
     mainContainer: {width: '100%', alignItems: 'center'},
     contentContainer: {
       height,
